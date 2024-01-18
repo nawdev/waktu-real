@@ -4,16 +4,16 @@ import moment from 'moment';
 
 const Clock = () => {
   const [startTime, setStartTime] = useState(moment());
-  const [elapsedTime, setElapsedTime] = useState(moment().diff(startTime));
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setElapsedTime(moment().diff(startTime));
+      setStartTime((prevStartTime) => moment(prevStartTime)); // Membuat salinan waktu awal
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [startTime]);
+  }, []);
 
+  const elapsedTime = moment().diff(startTime);
   const formattedElapsedTime = moment.utc(elapsedTime).format('HH:mm:ss');
 
   return (
